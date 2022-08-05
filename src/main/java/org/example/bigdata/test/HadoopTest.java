@@ -1,6 +1,5 @@
+package org.example.bigdata.test;
 
-import model.KeyBean;
-import model.NetWorkFlow;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.Text;
@@ -11,6 +10,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.example.bigdata.model.*;
 
 import java.io.IOException;
 
@@ -71,6 +71,11 @@ public class HadoopTest {
         job.waitForCompletion(true);
     }
 
+    public void upload()throws IOException{
+        FileSystem fileSystem = FileSystem.get(getConf());
+        fileSystem.copyFromLocalFile(new Path("/Users/ftang/Downloads/users.dat"), new Path("/user/hive/warehouse/metastore.db/users"));
+    }
+
     public void delete(Path path) throws IOException {
         FileSystem fileSystem = FileSystem.get(getConf());
         fileSystem.delete(path, true);
@@ -86,9 +91,11 @@ public class HadoopTest {
     }
 
     public static void main(String[] args) {
-        HadoopTest hadoopTest = new HadoopTest();
+       // HadoopTest hadoopTest = new HadoopTest();
         try {
-            hadoopTest.getNetworkFlow("/user/HTTP_20130313143750.dat", "/output");
+           Double a = 0.0;
+          //  hadoopTest.upload();
+          //  hadoopTest.getNetworkFlow("/user/HTTP_20130313143750.dat", "/output1");
         } catch (Exception e) {
             logger.error("Failed to get network flow: " + e.getMessage());
         }

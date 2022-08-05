@@ -1,4 +1,4 @@
-package model;
+package org.example.bigdata.model;
 
 import lombok.Builder;
 import lombok.Data;
