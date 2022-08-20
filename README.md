@@ -148,4 +148,4 @@ add this in mapred-site.xml(hadoop conf)
 ## Dist Copy
 1. use local configure, run SparkDistcp.main
 2. mvn clean package
-use spark-submit: spark-submit --master local --class org.example.bigdata.spark.SparkDistcp /Users/ftang/Desktop/bigdata-1.0-SNAPSHOT.jar -ifp /user/root/input -ofp hdfs://localhost:9000/user/root/output6 -i TRUE -m 6
+use spark-submit: spark-submit --master local --class org.example.bigdata.spark.SparkDistcp /Users/ftang/Desktop/bigdata-1.0-SNAPSHOT.jar -ifp /user/root/input -ofp output -i TRUE -m 6

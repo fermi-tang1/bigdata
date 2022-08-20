@@ -18,11 +18,11 @@ object SparkDistcp {
     System.setProperty("HADOOP_USER_NAME", "root")
 
     // local environment variables
-    //    var inputFilePath: String = "/user/root/input"
-    //    var outputFilePath: String = "hdfs://localhost:9000/user/root/output5"
-    //    var maxConcurrence: String = "5"
-    //    var ignoreFailure: Boolean = false
-    //    val sparkConf = new SparkConf().setAppName(this.getClass.getSimpleName).setMaster("local")
+    //   var inputFilePath: String = "/user/root/input"
+    //  var outputFilePath: String = "output5"
+    //        var maxConcurrence: String = "5"
+    //        var ignoreFailure: Boolean = false
+    //        val sparkConf = new SparkConf().setAppName(this.getClass.getSimpleName).setMaster("local")
 
     val sparkConf = new SparkConf().setAppName(this.getClass.getSimpleName)
     var inputFilePath: String = ""
@@ -60,8 +60,7 @@ object SparkDistcp {
     filePaths.foreach(
       filePath =>
         try {
-          val fileName = filePath.substring(filePath.lastIndexOf("/") + 1)
-          sc.textFile(filePath, maxConcurrence.toInt).saveAsTextFile(new Path(outputFilePath, fileName).toString);
+          sc.textFile(filePath, maxConcurrence.toInt).saveAsTextFile(filePath.replace("input", outputFilePath));
         } catch {
           case t: Throwable => t.printStackTrace()
             if (!ignoreFailure) {
