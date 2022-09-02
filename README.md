@@ -149,3 +149,26 @@ add this in mapred-site.xml(hadoop conf)
 1. use local configure, run SparkDistcp.main
 2. mvn clean package
 use spark-submit: spark-submit --master local --class org.example.bigdata.spark.SparkDistcp /Users/ftang/Desktop/bigdata-1.0-SNAPSHOT.jar -ifp /user/root/input -ofp output -i TRUE -m 6
+   
+
+
+## Homework - Week 8
+1. Task 2: Run DataFrameTest to test the spark sql Optimization rules.
+2. Task 3: 自定义了一个规则，当查询结果小于1时，不需要应用排序。
+   2.1 mvn clean package
+   2.2 ./spark-sql --jars /Users/ftang/WorkSpace/bigdata/target/bigdata-1.0-SNAPSHOT.jar  --conf spark.sql.extensions=MySparkSessionExtension
+   2.3 spark-sql> set spark.sql.planChangeLog.level=WARN;
+   2.4 spark-sql> create temporary view test as select * from values
+                    ("A", 1),
+                    ("B", 2),
+                    ("C", 3),
+                    ("D", 4)
+                    as test(name, value);
+   2.5 SELECT * FROM test where value < 2 order by value; 
+   ```` 查看log可以看到：The maximum number of rows are less than 1, no need to sort!!!22/09/02 17:36:05 WARN PlanChangeLogger:
+    === Applying Rule CustomRule ===
+   !Sort [value#13 ASC NULLS FIRST], true   LocalRelation [name#12, value#13]
+   !+- LocalRelation [name#12, value#13]
+   ```
+   2.6 SELECT * FROM test where value < 4 order by value;  // 查看不到过滤的Log
+

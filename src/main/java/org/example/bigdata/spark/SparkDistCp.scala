@@ -2,6 +2,7 @@ package org.example.bigdata.spark
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable.ListBuffer
@@ -11,7 +12,6 @@ import scala.collection.mutable.ListBuffer
  * @Date: Created in 17:34,2022/8/19
  */
 object SparkDistcp {
-
   def main(args: Array[String]): Unit = {
     // set user to root to access hdfs
 
@@ -25,6 +25,7 @@ object SparkDistcp {
     //        val sparkConf = new SparkConf().setAppName(this.getClass.getSimpleName).setMaster("local")
 
     val sparkConf = new SparkConf().setAppName(this.getClass.getSimpleName)
+
     var inputFilePath: String = ""
     var outputFilePath: String = ""
     var maxConcurrence: String = "5"
